@@ -240,6 +240,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
         self.refreshFull()
         self.refreshHour()
         self.refreshPrint()
+        self.refreshHistory()
         self.refreshWatts()
 
     def get_settings_defaults(self):
@@ -268,6 +269,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
         self.refreshFull()
         self.refreshHour()
         self.refreshPrint()
+        self.refreshHistory()
         self.refreshWatts()
 
         return jsonify(dict(
@@ -275,7 +277,8 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             hourDataset=self.hourDataset,
             printDataset=self.printDataset,
             dkwhDataset=self.dkwhDataset,
-            mkwhDataset=self.mkwhDataset
+            mkwhDataset=self.mkwhDataset,
+            historyDataset=self.historyDataset
         ))
 
     ##~~ AssetPlugin API
@@ -381,6 +384,34 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
         self.printDataset = {'upload': upload, 'print_started': print_started, 'print_done': print_done,
             'print_failed': print_failed, 'print_cancelled': print_cancelled}
         self._plugin_manager.send_plugin_message(self._identifier, dict(printDataset=self.printDataset))
+
+    def refreshHistory(self):
+        sql = """SELECT event_time, file, origin as location, 'done' as status, ptime FROM print_done 
+                 UNION ALL 
+                 SELECT event_time, file, origin as location, 'failed' as status, 0 as ptime FROM print_failed 
+                 UNION ALL 
+                 SELECT event_time, 'Verbindung hergestellt' as file, '' as location, 'connected' as status, 0 as ptime FROM connected 
+                 UNION ALL 
+                 SELECT event_time, 'Verbindung getrennt' as file, '' as location, 'disconnected' as status, 0 as ptime FROM disconnected 
+                 UNION ALL 
+                 SELECT event_time, file, origin as location, 'started' as status, 0 as ptime FROM print_started 
+                 UNION ALL 
+                 SELECT event_time, file, origin as location, 'cancelled' as status, 0 as ptime FROM print_cancelled 
+                 UNION ALL 
+                 SELECT event_time, file, origin as location, 'paused' as status, 0 as ptime FROM print_paused 
+                 UNION ALL 
+                 SELECT event_time, file, origin as location, 'resumed' as status, 0 as ptime FROM print_resumed 
+                 UNION ALL 
+                 SELECT event_time, file, target as location, 'upload' as status, 0 as ptime FROM upload 
+                 ORDER BY event_time DESC LIMIT 1000"""
+        rows = self.statDB.query(sql)
+        history = list()
+
+        for row in rows:
+            history.append({'event_time': row[0], 'name': row[1], 'location': row[2], 'status': row[3], 'print_time': row[4]})
+
+        self.historyDataset = {'history': history}
+        self._plugin_manager.send_plugin_message(self._identifier, dict(historyDataset=self.historyDataset))
 
     def refreshWatts(self):
         pcbheatbed = float(self._settings.get(["pcbheatbed"]))
@@ -525,6 +556,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             self.refreshFull()
             self.refreshHour()
             self.refreshPrint()
+            self.refreshHistory()
             self.refreshWatts()
 
     ##~~ Softwareupdate hook

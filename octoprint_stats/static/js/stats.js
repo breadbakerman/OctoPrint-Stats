@@ -30,7 +30,7 @@ $(function() {
         self.renderCharts = function () {
 
         }
-
+        
         self.fromResponse = function (response) {
             // Full Stats
             self.setFullChart(response.fullDataset);
@@ -42,6 +42,8 @@ $(function() {
             self.setDaykWhChart(response.dkwhDataset);
             // Month kWh
             self.setMonthkWhChart(response.mkwhDataset);
+            // History
+            //self.setHistoryDataset(response.historyDataset);
 
             if (self.pollingEnabled) {
                 self.pollingTimeoutId = setTimeout(function() {
@@ -78,6 +80,8 @@ $(function() {
             self.setPrintChart(self.printDataset);
             self.setDaykWhChart(self.dkwhDataset);
             self.setMonthkWhChart(self.mkwhDataset);
+
+            self.setHistoryDataset(message.historyDataset);
         };
 
         self.setFullChart = function(ds) {
@@ -88,34 +92,34 @@ $(function() {
               labels : ds.month,
               datasets : [//Connections
                 {
-                  fillColor : "rgba(46,204,113,0.5)",
-                  strokeColor : "rgba(46,204,113,0.8)",
-                  highlightFill: "rgba(46,204,113,0.75)",
-                  highlightStroke: "rgba(46,204,113,1)",
+                  fillColor : "rgba(26,188,156,0.5)",
+                  strokeColor : "rgba(26,188,156,0.8)",
+                  highlightFill: "rgba(26,188,156,0.75)",
+                  highlightStroke: "rgba(26,188,156,1)",
                   data : ds.connected,
                   label : "Verbindungen"
                 },// Uploads
-                {
-                  fillColor : "rgba(52,152,219,0.5)",
-                  strokeColor : "rgba(52,152,219,0.8)",
-                  highlightFill: "rgba(52,152,219,0.75)",
-                  highlightStroke: "rgba(52,152,219,1)",
-                  data : ds.upload,
-                  label : "Uploads"
-                },// Prints
                 {
                   fillColor : "rgba(41,128,185,0.5)",
                   strokeColor : "rgba(41,128,185,0.8)",
                   highlightFill: "rgba(41,128,185,0.75)",
                   highlightStroke: "rgba(41,128,185,1)",
+                  data : ds.upload,
+                  label : "Uploads"
+                },// Prints
+                {
+                  fillColor : "rgba(52,152,219,0.5)",
+                  strokeColor : "rgba(52,152,219,0.8)",
+                  highlightFill: "rgba(52,152,219,0.75)",
+                  highlightStroke: "rgba(52,152,219,1)",
                   data : ds.print_started,
                   label : "Ausdrucke"
                 },// Dones
                 {
-                  fillColor : "rgba(26,188,156,0.5)",
-                  strokeColor : "rgba(26,188,156,0.8)",
-                  highlightFill: "rgba(26,188,156,0.75)",
-                  highlightStroke: "rgba(26,188,156,1)",
+                  fillColor : "rgba(46,204,113,0.5)",
+                  strokeColor : "rgba(46,204,113,0.8)",
+                  highlightFill: "rgba(46,204,113,0.75)",
+                  highlightStroke: "rgba(46,204,113,1)",
                   data : ds.print_done,
                   label : "Erfolgreich"
                 },// Failed
@@ -168,25 +172,15 @@ $(function() {
               labels : ds.hour,
               datasets : [//Connections
                 {
-                  fillColor : "rgba(46,204,113,0.5)",
-                  strokeColor : "rgba(46,204,113,0.8)",
-                  pointColor: "rgba(46,204,113,1)",
+                  fillColor : "rgba(26,188,156,0.5)",
+                  strokeColor : "rgba(26,188,156,0.8)",
+                  pointColor: "rgba(26,188,156,1)",
                   pointStrokeColor: "#fff",
                   pointHighlightFill: "#fff",
-                  pointHighlightStroke: "rgba(46,204,113,1)",
+                  pointHighlightStroke: "rgba(26,188,156,1)",
                   data : ds.connected,
                   label : "Verbindungen"
                 },// Uploads
-                {
-                  fillColor : "rgba(52,152,219,0.5)",
-                  strokeColor : "rgba(52,152,219,0.8)",
-                  pointColor: "rgba(52,152,219,1)",
-                  pointStrokeColor: "#fff",
-                  pointHighlightFill: "#fff",
-                  pointHighlightStroke: "rgba(52,152,219,1)",
-                  data : ds.upload,
-                  label : "Uploads"
-                },// Prints
                 {
                   fillColor : "rgba(41,128,185,0.5)",
                   strokeColor : "rgba(41,128,185,0.8)",
@@ -194,16 +188,26 @@ $(function() {
                   pointStrokeColor: "#fff",
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(41,128,185,1)",
+                  data : ds.upload,
+                  label : "Uploads"
+                },// Prints
+                {
+                  fillColor : "rgba(52,152,219,0.5)",
+                  strokeColor : "rgba(52,152,219,0.8)",
+                  pointColor: "rgba(52,152,219,1)",
+                  pointStrokeColor: "#fff",
+                  pointHighlightFill: "#fff",
+                  pointHighlightStroke: "rgba(52,152,219,1)",
                   data : ds.print_started,
                   label : "Ausdrucke"
                 },// Dones
                 {
-                  fillColor : "rgba(26,188,156,0.5)",
-                  strokeColor : "rgba(26,188,156,0.8)",
-                  pointColor: "rgba(26,188,156,1)",
+                  fillColor : "rgba(46,204,113,0.5)",
+                  strokeColor : "rgba(46,204,113,0.8)",
+                  pointColor: "rgba(46,204,113,1)",
                   pointStrokeColor: "#fff",
                   pointHighlightFill: "#fff",
-                  pointHighlightStroke: "rgba(26,188,156,1)",
+                  pointHighlightStroke: "rgba(46,204,113,1)",
                   data : ds.print_done,
                   label : "Erfolgreich"
                 },// Failed
@@ -384,7 +388,7 @@ $(function() {
                 var ctx = document.getElementById("canvas_mkwhstat").getContext("2d");
                 if (window.statmkWh != undefined)
                     window.statmkWh.clear();
-
+    
                 window.statmkWh = new Chart(ctx).Line(self.statmkwh, {
                   responsive : true,
                   legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
@@ -394,6 +398,44 @@ $(function() {
             }
         };
 
+        self.setHistoryDataset = function (ds) {
+            if (ds == undefined)
+                return;
+
+            self.historyDataset = ds.history.filter(function (e, i, a) {
+                return i === 0 || ((new Date(a[i - 1].event_time)).getTime() - (new Date(e.event_time)).getTime()) / 1000 > 10;
+            });
+            
+            var $container = $('#history_wrapper');
+            var icons = {'connected': 'plug', 'disconnected': 'power-off', 'upload': 'upload', 'started': 'print', 'done': 'check-circle-o', 'failed': 'times-circle-o', 'cancelled': 'stop-circle-o', 'paused': 'pause-circle-o', 'resumed': 'play-circle-o'};
+            var labels = {'connected': '', 'disconnected': '', 'upload': 'Hochgeladen: ', 'started': 'Druckbeginn: ', 'done': 'Erfolgreich: ', 'failed': 'Fehlgeschlagen: ', 'cancelled': 'Abgebrochen: ', 'paused': 'Angehalten: ', 'resumed': 'Fortgesetzt: '};
+            $container.empty();
+            self.historyDataset.every(function (entry) {
+                var $entry = $('<div class="span12 row-fluid status-' + entry.status + '"></div>');
+                var ptime = [''];
+                if (entry.print_time > 0) {
+                    var hours = parseInt(entry.print_time / 3600, 10);
+                    var minutes = parseInt(entry.print_time % 3600 / 60, 10);
+                    var seconds = parseInt(entry.print_time % 3600 % 60, 10);
+                    if (hours) {
+                        ptime.push(hours+'h');
+                    }
+                    if (hours || minutes) {
+                        ptime.push(minutes+'m');
+                    }
+                    ptime.push(seconds+'s');
+                }
+                $('<div class="span3 time"><i class="fa fa-'+icons[entry.status]+'"></i>'+entry.event_time.substring(0,19)+'</div>').appendTo($entry);
+                $('<div class="span7 name">'+labels[entry.status]+entry.name+'</div>').appendTo($entry);
+                if (ptime.length > 1) {
+                    $('<div class="span2 ptime">'+ptime.join(' ')+'</div>').appendTo($entry);
+                } else if (entry.status === 'upload' || entry.status === 'started') {
+                    $('<div class="span2 ptime">'+entry.location+'</div>').appendTo($entry);
+                }
+                $entry.appendTo($container);
+                return true;
+            });
+        };
     }
 
 

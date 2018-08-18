@@ -1,6 +1,20 @@
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr>
     <td colspan="2">
+      <h1>{{ _('Druckverlauf') }}</h1>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <div id="history_toolbar">
+        <span onclick="$('#history_wrapper').toggleClass('show-connections');$(this).find('.fa').toggleClass('fa-toggle-off fa-toggle-on')"><i class="fa fa-toggle-off"></i>&nbsp; <small>Verbindungsmeldungen</small></span> &nbsp;|&nbsp; <span onclick="$('#history_wrapper').toggleClass('show-uploads');$(this).find('.fa').toggleClass('fa-toggle-off fa-toggle-on')"><i class="fa fa-toggle-off"></i>&nbsp; <small>Uploads</small></span>
+      </div>
+      <div id="history_wrapper" class="span12 row-fluid scrollable">
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
       <h1>{{ _('Druckstatistik') }}</h1>
     </td>
   </tr>
