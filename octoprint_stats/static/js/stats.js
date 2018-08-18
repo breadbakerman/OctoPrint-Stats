@@ -93,7 +93,7 @@ $(function() {
                   highlightFill: "rgba(46,204,113,0.75)",
                   highlightStroke: "rgba(46,204,113,1)",
                   data : ds.connected,
-                  label : "Connection"
+                  label : "Verbindungen"
                 },// Uploads
                 {
                   fillColor : "rgba(52,152,219,0.5)",
@@ -101,7 +101,7 @@ $(function() {
                   highlightFill: "rgba(52,152,219,0.75)",
                   highlightStroke: "rgba(52,152,219,1)",
                   data : ds.upload,
-                  label : "Upload"
+                  label : "Uploads"
                 },// Prints
                 {
                   fillColor : "rgba(41,128,185,0.5)",
@@ -109,7 +109,7 @@ $(function() {
                   highlightFill: "rgba(41,128,185,0.75)",
                   highlightStroke: "rgba(41,128,185,1)",
                   data : ds.print_started,
-                  label : "Print"
+                  label : "Ausdrucke"
                 },// Dones
                 {
                   fillColor : "rgba(26,188,156,0.5)",
@@ -117,7 +117,7 @@ $(function() {
                   highlightFill: "rgba(26,188,156,0.75)",
                   highlightStroke: "rgba(26,188,156,1)",
                   data : ds.print_done,
-                  label : "Print complete"
+                  label : "Erfolgreich"
                 },// Failed
                 {
                   fillColor : "rgba(231,76,60,0.5)",
@@ -125,7 +125,7 @@ $(function() {
                   highlightFill: "rgba(231,76,60,0.75)",
                   highlightStroke: "rgba(231,76,60,1)",
                   data : ds.print_failed,
-                  label : "Print failed"
+                  label : "Fehlgeschlagen"
                 },// Cancelled
                 {
                   fillColor : "rgba(189,195,199,0.5)",
@@ -133,7 +133,7 @@ $(function() {
                   highlightFill: "rgba(189,195,199,0.75)",
                   highlightStroke: "rgba(189,195,199,1)",
                   data : ds.print_cancelled,
-                  label : "Print cancelled"
+                  label : "Abgebrochen"
                 },// Error
                 {
                   fillColor : "rgba(241,196,15,0.5)",
@@ -141,7 +141,7 @@ $(function() {
                   highlightFill: "rgba(241,196,15,0.75)",
                   highlightStroke: "rgba(241,196,15,1)",
                   data : ds.error,
-                  label : "Error"
+                  label : "Fehler"
                 }
               ]
             }
@@ -175,7 +175,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(46,204,113,1)",
                   data : ds.connected,
-                  label : "Connection"
+                  label : "Verbindungen"
                 },// Uploads
                 {
                   fillColor : "rgba(52,152,219,0.5)",
@@ -185,7 +185,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(52,152,219,1)",
                   data : ds.upload,
-                  label : "Upload"
+                  label : "Uploads"
                 },// Prints
                 {
                   fillColor : "rgba(41,128,185,0.5)",
@@ -195,7 +195,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(41,128,185,1)",
                   data : ds.print_started,
-                  label : "Print"
+                  label : "Ausdrucke"
                 },// Dones
                 {
                   fillColor : "rgba(26,188,156,0.5)",
@@ -205,7 +205,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(26,188,156,1)",
                   data : ds.print_done,
-                  label : "Print complete"
+                  label : "Erfolgreich"
                 },// Failed
                 {
                   fillColor : "rgba(231,76,60,0.5)",
@@ -215,7 +215,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(231,76,60,1)",
                   data : ds.print_failed,
-                  label : "Print failed"
+                  label : "Fehlgeschlagen"
                 },// Cancelled
                 {
                   fillColor : "rgba(189,195,199,0.5)",
@@ -225,7 +225,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(189,195,199,1)",
                   data : ds.print_cancelled,
-                  label : "Print cancelled"
+                  label : "Abgebrochen"
                 },// Error
                 {
                   fillColor : "rgba(241,196,15,0.5)",
@@ -235,7 +235,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(241,196,15,1)",
                   data : ds.error,
-                  label : "Error"
+                  label : "Fehler"
                 }
               ]
             }
@@ -263,31 +263,31 @@ $(function() {
                   color : "rgba(52,152,219,0.5)",
                   highlight: "rgba(52,152,219,1)",
                   value : ds.upload,
-                  label : "Upload"
+                  label : "Uploads"
                 },// Prints
                 {
                   color : "rgba(41,128,185,0.5)",
                   highlight: "rgba(41,128,185,1)",
                   value : ds.print_started,
-                  label : "Print"
+                  label : "Ausdrucke"
                 },// Dones
                 {
                   color : "rgba(26,188,156,0.5)",
                   highlight: "rgba(26,188,156,1)",
                   value : ds.print_done,
-                  label : "Print complete"
+                  label : "Erfolgreich"
                 },// Failed
                 {
                   color : "rgba(231,76,60,0.5)",
                   highlight: "rgba(231,76,60,1)",
                   value : ds.print_failed,
-                  label : "Print failed"
+                  label : "Fehlgeschlagen"
                 },// Cancelled
                 {
                   color : "rgba(189,195,199,0.5)",
                   highlight: "rgba(189,195,199,1)",
                   value : ds.print_cancelled,
-                  label : "Print cancelled"
+                  label : "Abgebrochen"
                 },
             ];
 
@@ -331,7 +331,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(52,152,219,1)",
                   data : ds.phour,
-                  label : "Hours"
+                  label : "Stunden"
                 },
               ]
             };
@@ -375,7 +375,7 @@ $(function() {
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(52,152,219,1)",
                   data : ds.phour,
-                  label : "Hours"
+                  label : "Stunden"
                 },
               ]
             };

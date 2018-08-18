@@ -1,17 +1,11 @@
 # OctoPrint-Stats
 
 This plugin is designed to show statistics of your printer and estimate power usage in kWh.
+Fork with german translation and minor tweaks.
 
 ## Setup
 
-Install via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager)
-or manually using this URL:
+Install manually using this URL:
 
-    https://github.com/amsbr/OctoPrint-Stats/archive/master.zip
+    https://github.com/breadbakerman/OctoPrint-Stats/archive/master.zip
 
-## Screenshots
-
-![Screenshot 1](http://plugins.octoprint.org/assets/img/plugins/stats/img1.png)
-![Screenshot 2](http://plugins.octoprint.org/assets/img/plugins/stats/img2.png)
-![Screenshot 3](http://plugins.octoprint.org/assets/img/plugins/stats/img3.png)
-![Screenshot 4](http://plugins.octoprint.org/assets/img/plugins/stats/img4.png)

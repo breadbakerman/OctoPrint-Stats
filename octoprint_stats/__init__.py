@@ -13,6 +13,8 @@ from flask import jsonify, make_response
 import os.path
 import datetime
 import calendar
+from calendar import TimeEncoding, month_name
+import locale
 import sqlite3
 
 class StatsDB:
@@ -284,6 +286,13 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             js=["js/stats.js", "js/Chart.js"]
         )
 
+    def get_localized_month_name(self, month_no, locale = locale.getdefaultlocale()[0] + "." + locale.getdefaultlocale()[1]):
+        with TimeEncoding(locale) as encoding:
+            s = month_name[month_no]
+            if encoding is not None:
+                s = s.decode(encoding)
+            return s
+
     def refreshFull(self):
         sql = "SELECT month, connected, disconnected, upload, print_started, print_done, print_failed, print_cancelled, print_paused, print_resumed, error FROM fullstat LIMIT 3"
         rows = self.statDB.query(sql)
@@ -301,7 +310,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 
         for row in rows:
             mon = row[0]
-            monName = calendar.month_name[int(mon[4:6])]
+            monName = self.get_localized_month_name(int(mon[4:6]))
 
             month.append(monName)
             connected.append(int(row[1]))
@@ -522,17 +531,17 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
     def get_update_information(self):
         return dict(
             stats=dict(
-                displayName="Printer Stats",
+                displayName="Druckstatistik",
                 displayVersion=self._plugin_version,
 
                 # version check: github repository
                 type="github_release",
-                user="amsbr",
+                user="breadbakerman",
                 repo="OctoPrint-Stats",
                 current=self._plugin_version,
 
                 # update method: pip w/ dependency links
-                pip="https://github.com/amsbr/OctoPrint-Stats/archive/{target_version}.zip"
+                pip="https://github.com/breadbakerman/OctoPrint-Stats/archive/{target_version}.zip"
             )
         )
 
@@ -540,9 +549,8 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
-__plugin_name__ = "Printer Stats"
-__plugin_version__ = "1.0.0"
-__plugin_description__ = "Statistics of your 3D Printer"
+__plugin_name__ = "Druckstatistik"
+__plugin_description__ = "Tab mit Statistiken in übersichtlichen Schaubildern"
 
 def __plugin_load__():
     global __plugin_implementation__
